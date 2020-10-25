@@ -159,6 +159,7 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
   function harvestItem(uint _upc, address _originFarmerID, string _originFarmName, string _originFarmInformation, string  _originFarmLatitude, string  _originFarmLongitude, string  _productNotes) public 
+  onlyFarmer()
   {
     // Add the new item as part of Harvest
     Item memory newItem = Item({
@@ -170,7 +171,7 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
       originFarmInformation: _originFarmInformation,
       originFarmLatitude: _originFarmLatitude,
       originFarmLongitude: _originFarmLongitude,
-      productID: 0,
+      productID: sku + _upc,
       productNotes: _productNotes,
       productPrice: 0,
       itemState: State.Harvested,
@@ -191,7 +192,8 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
   // Call modifier to check if upc has passed previous supply chain stage
   harvested(_upc)
   // Call modifier to verify caller of this function
-  verifyCaller(msg.sender)
+  onlyFarmer() 
+  verifyCaller(items[_upc].originFarmerID)
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
@@ -204,7 +206,8 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
   // Call modifier to check if upc has passed previous supply chain stage
   processed(_upc) 
   // Call modifier to verify caller of this function
-  verifyCaller(msg.sender)
+  onlyFarmer() 
+  verifyCaller(items[_upc].originFarmerID)
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Packed;
@@ -217,7 +220,8 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
   // Call modifier to check if upc has passed previous supply chain stage
   packed(_upc)
   // Call modifier to verify caller of this function
-  verifyCaller(msg.sender)
+  onlyFarmer() 
+  verifyCaller(items[_upc].originFarmerID)
   {
     // Update the appropriate fields
     items[_upc].itemState = State.ForSale;
@@ -236,6 +240,7 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
     paidEnough(items[_upc].productPrice)
     // Call modifer to send any excess ether back to buyer
     checkValue(_upc)
+    onlyDistributor()
     {
     
     // Update the appropriate fields - ownerID, distributorID, itemState
@@ -254,7 +259,8 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
     // Call modifier to check if upc has passed previous supply chain stage
     sold(_upc)
     // Call modifier to verify caller of this function
-    verifyCaller(msg.sender)
+    onlyDistributor()
+    verifyCaller(items[_upc].distributorID)
     {
     // Update the appropriate fields
     items[_upc].itemState = State.Shipped;
@@ -268,6 +274,7 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
     // Call modifier to check if upc has passed previous supply chain stage
     shipped(_upc)
     // Access Control List enforced by calling Smart Contract / DApp
+    onlyRetailer()
     {
     // Update the appropriate fields - ownerID, retailerID, itemState
     items[_upc].ownerID = msg.sender;
@@ -284,6 +291,7 @@ contract SupplyChain is ConsumerRole, DistributorRole, FarmerRole, RetailerRole,
     // Call modifier to check if upc has passed previous supply chain stage
     received(_upc)
     // Access Control List enforced by calling Smart Contract / DApp
+    onlyConsumer()
     {
     // Update the appropriate fields - ownerID, consumerID, itemState
     items[_upc].ownerID = msg.sender;
