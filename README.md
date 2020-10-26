@@ -1,3 +1,21 @@
+# Project information
+
+## Contract address
+
+ - 0xd4DD5e79092D20D3a922dCbcfe4a43237463221B
+
+ ## Libraries
+
+ truffle-hdwallet-provider - Helps with contract deployment to Rinkeby network
+ truffle-assertions - Allows to listen to solidity events in unit tests
+
+## Versions
+
+- node: 12.18.4
+- truffle: 5.1.46
+- Web3: 0.20.7
+
+
 # Supply chain & data auditing
 
 This repository containts an Ethereum DApp that demonstrates a Supply Chain flow between a Seller and Buyer. The user story is similar to any commonly used supply chain process. A Seller can add items to the inventory system stored in the blockchain. A Buyer can purchase such items from the inventory system. Additionally a Seller can mark an item as Shipped, and similarly a Buyer can mark an item as Received.

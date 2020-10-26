@@ -4,18 +4,18 @@ App = {
     emptyAddress: "0x0000000000000000000000000000000000000000",
     sku: 0,
     upc: 0,
-    metamaskAccountID: "0x0000000000000000000000000000000000000000",
-    ownerID: "0x0000000000000000000000000000000000000000",
-    originFarmerID: "0x0000000000000000000000000000000000000000",
+    metamaskAccountID: "0xdb8219dc88a72c7cb97febf0ebcaa45f29430c7f",
+    ownerID: "0xdb8219dc88a72c7cb97febf0ebcaa45f29430c7f",
+    originFarmerID: "0xA179AB4E35a176aBD10d8Bb6fF68Ebdb4F9Dcc46",
     originFarmName: null,
     originFarmInformation: null,
     originFarmLatitude: null,
     originFarmLongitude: null,
     productNotes: null,
     productPrice: 0,
-    distributorID: "0x0000000000000000000000000000000000000000",
-    retailerID: "0x0000000000000000000000000000000000000000",
-    consumerID: "0x0000000000000000000000000000000000000000",
+    distributorID: "0x44c2B5Bc0D882bab792f7b4c9cc048C1132b6466",
+    retailerID: "0x9798369Bd71d7f97C79743Bd01157b6e564AC5c0",
+    consumerID: "0xa5B492aeBcaD038BAc22364Cbc23339c6582d825",
 
     init: async function () {
         App.readForm();
@@ -164,6 +164,7 @@ App = {
     },
 
     harvestItem: function(event) {
+        debugger;
         event.preventDefault();
         var processId = parseInt($(event.target).data('id'));
 
