@@ -1,8 +1,14 @@
 # Project information
 
+## UML
+    
+ - [UML Diagrams](uml/) 
+
 ## Contract address
 
  - 0xd4DD5e79092D20D3a922dCbcfe4a43237463221B
+
+ - Tx: 0x150be796170abed1082789bc0e3aeee02ce7059d74dc2b92adf3699e311ff8ba
 
  ## Libraries
 
